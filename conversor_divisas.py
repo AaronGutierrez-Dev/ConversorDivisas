@@ -53,4 +53,11 @@ entry_divisa_computar.place(relx=0.2, rely=0.6, anchor="center")
 label_resultado = ctk.CTkEntry(master=app, state='readonly', font=("Segoe UI", 15))
 label_resultado.place(relx=0.8, rely=0.6, anchor="center")
 
+#Adición botón de convertir
+
+def button_clicked():
+    print("Button clicked")
+
+button_convertir = ctk.CTkButton(master=app, text="Convertir", command=button_clicked)
+button_convertir.place(relx=0.5, rely=0.5, anchor="center")
 app.mainloop()
