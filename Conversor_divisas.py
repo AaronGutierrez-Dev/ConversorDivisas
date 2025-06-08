@@ -66,9 +66,12 @@ def tasa_cambio(base, hacia, cantidad=1):
 
 
 # 4. Configuramos la ventana principal.
+
+#Establecemos la apareciencia que tendrá la ventana principal de la aplicación eligiendo el modo dark y color blue con los atributos set_appearance_mode y set_default_color_theme.
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
+#Creamos la ventana principal y asignamos título, dimensiones e impedimos que el tamaño pueda ser modificado por el usuario con el atributo resizable.
 app = ctk.CTk()
 app.title("Conversor de Divisas")
 app.geometry('600x250')
@@ -79,23 +82,27 @@ label_titulo = ctk.CTkLabel(master=app, text="Conversor de Divisas", font=("Sego
 label_titulo.place(relx=0.5, rely=0.1, anchor="center")
 label_desde = ctk.CTkLabel(master=app, text="Desde", font=("Segoe UI", 15))
 label_desde.place(relx=0.2, rely=0.2, anchor="center")
-label_hasta = ctk.CTkLabel(master=app, text="Hasta", font=("Segoe UI", 15))
+label_hasta = ctk.CTkLabel(master=app, text="Hacia", font=("Segoe UI", 15))
 label_hasta.place(relx=0.8, rely=0.2, anchor="center")
 
-# Adición Combobox
+# Adición de los Combobox
 combobox_divisas_desde = ctk.CTkOptionMenu(master=app, values=lista_monedas, font=("Segoe UI", 15))
 combobox_divisas_desde.place(relx=0.2, rely=0.3, anchor="center")
 combobox_divisas_hacia = ctk.CTkOptionMenu(master=app, values=lista_monedas, font=("Segoe UI", 15))
 combobox_divisas_hacia.place(relx=0.8, rely=0.3, anchor="center")
 
-# Adición de la entrada y etiqueta de resultado
+# Adición de la entrada del valor a convertir y etiqueta de resultado
 
 entry_divisa_computar = ctk.CTkEntry(master=app, placeholder_text="Ingresa el valor", font=("Segoe UI", 15))
 entry_divisa_computar.place(relx=0.5, rely=0.5, anchor="center")
-label_resultado = ctk.CTkEntry(master=app, state='readonly', font=("Segoe UI", 15), width=550)
+label_resultado = ctk.CTkEntry(master=app, state='readonly', font=("Segoe UI", 15), width=400)
 label_resultado.place(relx=0.5, rely=0.9, anchor="center")
 
+#Definición de la función con la que convertiremos los y daremos funcionamiento a la aplicación.
 def convertir():
+
+    #Con XXX TRY - EXCEPT haremos que la aplicación realice una operación de conversión de monedas según los datos obtenidos de la API. En caso de que haya algún error, esta pasará al EXCEPT -  y mostrará un mensaje según el tipo de error o problema.
+
     try:
         valor_ingreso = float(entry_divisa_computar.get())
         desde = combobox_divisas_desde.get()
@@ -110,7 +117,7 @@ def convertir():
 
         label_resultado.configure(state="normal")
         label_resultado.delete(0, ctk.END)
-        label_resultado.insert(0, f"{valor_ingreso} {desde} equivalen a {resultado:.2f} {hacia}")
+        label_resultado.insert(0, f"{valor_ingreso} {codigo_moneda_desde} equivalen a {resultado:.2f} {codigo_moneda_hacia}")
         label_resultado.configure(state="readonly")
 
     except ValueError as ve:
